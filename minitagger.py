@@ -324,6 +324,7 @@ def get_baseline_features(word_sequence, position):
     features["word(-2)={0}".format(word_left2)] = 1
     features["word(+1)={0}".format(word_right1)] = 1
     features["word(+2)={0}".format(word_right2)] = 1
+
     return features
 
 def get_embedding_features(word_sequence, position, embedding_dictionary):
@@ -363,6 +364,7 @@ def get_embedding_features(word_sequence, position, embedding_dictionary):
             word_embedding = embedding_dictionary[UNKNOWN_SYMBOL]
         for i, value in enumerate(word_embedding):
             features["embedding(+1)_at({0})".format(i + 1)] = value
+
 
     return features
 
@@ -411,6 +413,7 @@ def get_bitstring_features(word_sequence, position, bitstring_dictionary):
 
 class SequenceDataFeatureExtractor(object):
     """Extracts features from sequence data."""
+    _wiki_map=defaultdict(set)
 
     def __init__(self, feature_template):
         clear_spelling_feature_cache()
@@ -473,8 +476,19 @@ class SequenceDataFeatureExtractor(object):
                 # Only use labeled instances unless extract_all=True.
                 if (not label is None) or extract_all:
                     label_list.append(self.__get_label(label))
-                    features_list.append(
-                        self.__get_features(observation_sequence, position))
+                    feats=self.__get_features(observation_sequence, position)
+
+                    word=get_word(observation_sequence, position)
+                    if self._wiki_map.has_key(word):
+                        if label in self._wiki_map[word]:
+                            print 'licened '+label+' for word '+ word
+                            feats.append('wiki_licenced:true')
+                        else:
+                            feats.append('wiki_licenced:false')
+
+                    #todo
+
+                    features_list.append(feats)
                     location_list.append((sequence_num, position))
 
         return label_list, features_list, location_list
