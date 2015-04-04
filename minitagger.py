@@ -481,7 +481,7 @@ class SequenceDataFeatureExtractor(object):
                     word=get_word(observation_sequence, position).lower()
                     if self._wiki_map.has_key(word):
                         if label in self._wiki_map[word]:
-                            print 'has word '+word+' with label '+label
+                            #print 'has word '+word+' with label '+label
                             feats[self.__map_feature_str2num['wiki_licenced:true']]=1
 
                             raw_feature='wiki_licenced:true'+label
@@ -493,8 +493,8 @@ class SequenceDataFeatureExtractor(object):
                                 feats[self.__map_feature_str2num[raw_feature]]=1
 
                         else:
-                            print 'no word '+word+' with label '+label
-                            print self._wiki_map[word]
+                            #print 'no word '+word+' with label '+label
+                            #print self._wiki_map[word]
                             feats[self.__map_feature_str2num['wiki_licenced:true']]=-1
 
                             raw_feature='wiki_licenced:true'+label
@@ -619,7 +619,7 @@ class SequenceDataFeatureExtractor(object):
         self._wiki_map=defaultdict(set)
         with codecs.open(wiki_path,'r') as infile:
             for line in infile:
-                toks=line.split('\t')
+                toks=line.strip().split('\t')
                 if len(toks)!=2:
                     continue
 
@@ -632,7 +632,7 @@ class SequenceDataFeatureExtractor(object):
         self.__word_bitstring = {}
         with open(bitstring_path, "r") as infile:
             for line in infile:
-                toks = line.split()
+                toks = line.strip().split()
                 if len(toks) == 0:
                     continue
 
