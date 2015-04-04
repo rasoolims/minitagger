@@ -464,6 +464,8 @@ class SequenceDataFeatureExtractor(object):
         features_list = []
         location_list = []
 
+        print 'started extracting features'
+
         self.data_path = sequence_data.data_path
         for sequence_num, (observation_sequence, label_sequence) in \
                 enumerate(sequence_data.sequence_pairs):
