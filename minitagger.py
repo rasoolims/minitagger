@@ -494,6 +494,7 @@ class SequenceDataFeatureExtractor(object):
 
                         else:
                             print 'no word '+word+' with label '+label
+                            print self._wiki_map[word]
                             feats[self.__map_feature_str2num['wiki_licenced:true']]=-1
 
                             raw_feature='wiki_licenced:true'+label
