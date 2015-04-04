@@ -583,7 +583,7 @@ class SequenceDataFeatureExtractor(object):
                     continue
                 self._wiki_map[toks[0]].add(toks[1])
 
-        print 'num of wiki words: '+ len(self._wiki_map)
+        print 'num of wiki words: '+ str(len(self._wiki_map))
 
     def load_word_bitstrings(self, bitstring_path):
         """Loads word bitstrings from a file in the given path."""
