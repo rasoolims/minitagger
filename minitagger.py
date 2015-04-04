@@ -13,6 +13,7 @@ import random
 import subprocess
 import sys
 import time
+import codecs
 
 # Specify where to find liblinear.
 LIBLINEAR_PATH = os.path.join(os.path.dirname(__file__),
@@ -571,6 +572,18 @@ class SequenceDataFeatureExtractor(object):
             self.__word_embedding["`"] = self.__word_embedding["\""]
             self.__word_embedding["'"] = self.__word_embedding["\""]
 
+    
+    def load_wiktionary_dict(self, wiki_path):
+        self._wiki_map=defaultdict(set)
+        with codecs.open(wiki_path,'r') as infile:
+            for line in infile:
+                toks=line.split('\t')
+                if len(toks)==0:
+                    continue
+                self._wiki_map[toks[0]].add(toks[1])
+
+        print len(self._wiki_map)
+
     def load_word_bitstrings(self, bitstring_path):
         """Loads word bitstrings from a file in the given path."""
         self.__word_bitstring = {}
@@ -851,6 +864,8 @@ def main(args):
             feature_extractor.load_word_embeddings(args.embedding_path)
         if args.bitstring_path:
             feature_extractor.load_word_bitstrings(args.bitstring_path)
+        if args.wiki_path:
+            feature_extractor.load_wiktionary_dict(args.wiki_path)
         minitagger.equip_feature_extractor(feature_extractor)
         data_dev = SequenceData(args.dev_path) if args.dev_path else None
         if data_dev is not None:  # Development data should be fully labeled.
@@ -908,6 +923,7 @@ if __name__ == "__main__":
                            "embeddings")
     argparser.add_argument("--bitstring_path", type=str, help="path to word "
                            "bit strings (from a hierarchy of word types)")
+
     argparser.add_argument("--quiet", action="store_true", help="no messages")
     argparser.add_argument("--dev_path", type=str, help="path to development "
                            "data (used for training)")
@@ -926,5 +942,7 @@ if __name__ == "__main__":
                            type=int, default=100, help="output actively "
                            "selected examples every time this value divides "
                            "their number (default: %(default)d)")
+    argparser.add_argument("--wiki_path", type=str, help="path to wiktionary "
+                           "wiktionary path")
     parsed_args = argparser.parse_args()
     main(parsed_args)
