@@ -620,9 +620,6 @@ class SequenceDataFeatureExtractor(object):
                 toks=line.split('\t')
                 if len(toks)==0:
                     continue
-                #todo
-                if toks[0]=='die':
-                    print 'die is in dictionary'
                 self._wiki_map[toks[0]].add(toks[1])
 
         print 'num of wiki words: '+ str(len(self._wiki_map))
