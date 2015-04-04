@@ -504,7 +504,6 @@ class SequenceDataFeatureExtractor(object):
                             if raw_feature in  self.__map_feature_str2num:
                                 feats[self.__map_feature_str2num[raw_feature]]=-1
 
-
                     else:
                         print 'no word '+word
                     features_list.append(feats)
@@ -619,10 +618,11 @@ class SequenceDataFeatureExtractor(object):
         self._wiki_map=defaultdict(set)
         with codecs.open(wiki_path,'r') as infile:
             for line in infile:
-                toks=line.split('\t')
+                toks=line.split(' ')
                 if len(toks)==0:
                     continue
                 self._wiki_map[toks[0]].add(toks[1])
+               
 
         print 'num of wiki words: '+ str(len(self._wiki_map))
 
