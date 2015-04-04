@@ -464,8 +464,6 @@ class SequenceDataFeatureExtractor(object):
         features_list = []
         location_list = []
 
-        print 'started extracting features'
-
         self.data_path = sequence_data.data_path
         for sequence_num, (observation_sequence, label_sequence) in \
                 enumerate(sequence_data.sequence_pairs):
@@ -480,18 +478,12 @@ class SequenceDataFeatureExtractor(object):
                     label_list.append(self.__get_label(label))
                     feats=self.__get_features(observation_sequence, position)
 
-                    word=get_word(observation_sequence, position)
+                    word=get_word(observation_sequence, position).lower()
                     if self._wiki_map.has_key(word):
                         if label in self._wiki_map[word]:
-                            print 'licened '+label+' for word '+ word
                             feats.append('wiki_licenced:true')
                         else:
-                            print 'not licened '+label+' for word '+ word
                             feats.append('wiki_licenced:false')
-                    else:
-                        print 'word '+word +' not in dict'
-
-                    #todo
 
                     features_list.append(feats)
                     location_list.append((sequence_num, position))
