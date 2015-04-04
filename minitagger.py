@@ -504,8 +504,8 @@ class SequenceDataFeatureExtractor(object):
                             if raw_feature in  self.__map_feature_str2num:
                                 feats[self.__map_feature_str2num[raw_feature]]=-1
 
-                    else:
-                        print 'no word '+word
+                    #else:
+                        #print 'no word '+word
                     features_list.append(feats)
                     location_list.append((sequence_num, position))
 
