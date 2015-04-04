@@ -481,9 +481,9 @@ class SequenceDataFeatureExtractor(object):
                     word=get_word(observation_sequence, position).lower()
                     if self._wiki_map.has_key(word):
                         if label in self._wiki_map[word]:
-                            feats['wiki_licenced:true']=1
+                            feats[self.__map_feature_str2num['wiki_licenced:true']]=1
                         else:
-                            feats['wiki_licenced:false']=1
+                            feats[self.__map_feature_str2num['wiki_licenced:false']]=1
 
                     features_list.append(feats)
                     location_list.append((sequence_num, position))
@@ -540,6 +540,14 @@ class SequenceDataFeatureExtractor(object):
                     self.__map_feature_num2str[feature_number] = raw_feature
                 numeric_features[self.__map_feature_str2num[raw_feature]] = \
                     raw_features[raw_feature]
+                if not 'wiki_licenced:true' in self.__map_feature_str2num:
+                    feature_number = len(self.__map_feature_str2num) + 1
+                    self.__map_feature_str2num['wiki_licenced:true'] = feature_number
+                    self.__map_feature_num2str[feature_number] = 'wiki_licenced:true'
+
+                    feature_number = len(self.__map_feature_str2num) + 1
+                    self.__map_feature_str2num['wiki_licenced:false'] = feature_number
+                    self.__map_feature_num2str[feature_number] = 'wiki_licenced:false'
             else:
                 # if predicting, only consider known feature types.
                 if raw_feature in self.__map_feature_str2num:
