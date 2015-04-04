@@ -483,7 +483,7 @@ class SequenceDataFeatureExtractor(object):
                         if label in self._wiki_map[word]:
                             feats[self.__map_feature_str2num['wiki_licenced:true']]=1
                         else:
-                            feats[self.__map_feature_str2num['wiki_licenced:false']]=1
+                            feats[self.__map_feature_str2num['wiki_licenced:true']]=-1
 
                     features_list.append(feats)
                     location_list.append((sequence_num, position))
