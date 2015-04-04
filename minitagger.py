@@ -481,9 +481,9 @@ class SequenceDataFeatureExtractor(object):
                     word=get_word(observation_sequence, position).lower()
                     if self._wiki_map.has_key(word):
                         if label in self._wiki_map[word]:
-                            feats.append('wiki_licenced:true')
+                            feats['wiki_licenced:true']=1
                         else:
-                            feats.append('wiki_licenced:false')
+                            feats['wiki_licenced:false']=1
 
                     features_list.append(feats)
                     location_list.append((sequence_num, position))
