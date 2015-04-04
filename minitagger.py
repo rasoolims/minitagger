@@ -481,7 +481,7 @@ class SequenceDataFeatureExtractor(object):
                     word=get_word(observation_sequence, position).lower()
                     if self._wiki_map.has_key(word):
                         if label in self._wiki_map[word]:
-                            #print 'has word '+word+' with label '+label
+                            print 'has word '+word+' with label '+label
                             feats[self.__map_feature_str2num['wiki_licenced:true']]=1
 
                             raw_feature='wiki_licenced:true'+label
