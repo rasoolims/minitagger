@@ -866,7 +866,10 @@ def main(args):
         if args.bitstring_path:
             feature_extractor.load_word_bitstrings(args.bitstring_path)
         if args.wiki_path:
+            print 'has wiki path'
             feature_extractor.load_wiktionary_dict(args.wiki_path)
+        else:
+            print 'no wiki path'
         minitagger.equip_feature_extractor(feature_extractor)
         data_dev = SequenceData(args.dev_path) if args.dev_path else None
         if data_dev is not None:  # Development data should be fully labeled.
