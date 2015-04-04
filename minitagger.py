@@ -619,9 +619,10 @@ class SequenceDataFeatureExtractor(object):
         with codecs.open(wiki_path,'r') as infile:
             for line in infile:
                 toks=line.split('\t')
-                if len(toks)==0:
+                if len(toks)!=2:
                     continue
-                self._wiki_map[toks[0]].add(toks[1])
+
+                self._wiki_map[toks[0]].add(toks[-1])
 
         print 'num of wiki words: '+ str(len(self._wiki_map))
 
