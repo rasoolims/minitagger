@@ -14,6 +14,7 @@ import subprocess
 import sys
 import time
 import codecs
+from collections import defaultdict
 
 # Specify where to find liblinear.
 LIBLINEAR_PATH = os.path.join(os.path.dirname(__file__),
