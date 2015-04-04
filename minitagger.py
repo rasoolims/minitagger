@@ -484,7 +484,10 @@ class SequenceDataFeatureExtractor(object):
                             print 'licened '+label+' for word '+ word
                             feats.append('wiki_licenced:true')
                         else:
+                            print 'not licened '+label+' for word '+ word
                             feats.append('wiki_licenced:false')
+                    else:
+                        print 'word '+word +' not in dict'
 
                     #todo
 
