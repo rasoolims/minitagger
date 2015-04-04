@@ -482,8 +482,26 @@ class SequenceDataFeatureExtractor(object):
                     if self._wiki_map.has_key(word):
                         if label in self._wiki_map[word]:
                             feats[self.__map_feature_str2num['wiki_licenced:true']]=1
+
+                            raw_feature='wiki_licenced:true'+label
+                            if self.is_training and not raw_feature in  self.__map_feature_str2num:
+                                feature_number = len(self.__map_feature_str2num) + 1
+                                self.__map_feature_num2str[feature_number] = raw_feature
+
+                            if raw_feature in  self.__map_feature_str2num:
+                                feats[self.__map_feature_str2num[raw_feature]]=1
+
                         else:
                             feats[self.__map_feature_str2num['wiki_licenced:true']]=-1
+
+                            raw_feature='wiki_licenced:true'+label
+                            if self.is_training and not raw_feature in  self.__map_feature_str2num:
+                                feature_number = len(self.__map_feature_str2num) + 1
+                                self.__map_feature_num2str[feature_number] = raw_feature
+
+                            if raw_feature in  self.__map_feature_str2num:
+                                feats[self.__map_feature_str2num[raw_feature]]=-1
+
 
                     features_list.append(feats)
                     location_list.append((sequence_num, position))
